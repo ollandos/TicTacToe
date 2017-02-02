@@ -1,11 +1,11 @@
-console.log('Hello World!');
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Counter from './Counter';
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+  import Game from './TicTacToe';
+
 
 document.addEventListener('DOMContentLoaded', function() {
   ReactDOM.render(
-    React.createElement(Counter),
-    document.getElementById('mount')
+    <Game />,
+    document.getElementById('container')
   );
 });
