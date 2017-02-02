@@ -47,7 +47,7 @@ class Game extends React.Component {
     };
   }
   handleClick(i) {
-    const history = this.state.history;
+    const history = this.state.history.slice(0, this.state.turnNumber + 1);
     const current = history[this.state.turnNumber];
     const squares = current.squares.slice();
 
@@ -64,7 +64,6 @@ class Game extends React.Component {
   jumpTo(turn) {
     this.setState({
       turnNumber: turn,
-      history: this.state.history.slice(0, turn + 1),
       xIsNext: (turn % 2) ? false : true
     });
   }
@@ -76,11 +75,15 @@ class Game extends React.Component {
       const desc = turn ?
         'Move #' + turn :
         'Game start';
-      return (
+      const move = turn == this.state.turnNumber ?
+        <b><a href="#" onClick={() => this.jumpTo(turn)}>{desc}</a></b> :
+        <a href="#" onClick={() => this.jumpTo(turn)}>{desc}</a>;
+      let list = (
         <li key={turn}>
-          <a href="#" onClick={() => this.jumpTo(turn)}>{desc}</a>
+          {move}
         </li>
-      );
+      )
+      return list;
     });
     let status;
     if (winner) {
