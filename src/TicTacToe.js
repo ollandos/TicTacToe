@@ -9,28 +9,29 @@ function Square(props) {
 }
 
 class Board extends React.Component {
-  renderSquare(i) {
-    return <Square value={this.props.squares[i]} onClick={() => this.props.onClick(i)} />;
+  renderSquare(squareNumber) {
+    return <Square
+      key={squareNumber}
+      value={this.props.squares[squareNumber]}
+      onClick={() => this.props.onClick(squareNumber)}
+    />;
+  }
+  renderRow(i) {
+    let squares = [];
+    for (let index = 0; index < 3; index++) {
+      squares.push(this.renderSquare(index + i * 3));
+    }
+    return squares
   }
   render() {
+    let rows = [];
+    for (let rowNumber=0; rowNumber < 3; rowNumber++) {
+      rows.push(
+          <div key={rowNumber} className="board-row">{this.renderRow(rowNumber)}</div>
+      );
+    }
     return (
-      <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
-      </div>
+      <div>{rows}</div>
     );
   }
 }
@@ -78,7 +79,7 @@ class Game extends React.Component {
       const move = turn == this.state.turnNumber ?
         <b><a href="#" onClick={() => this.jumpTo(turn)}>{desc}</a></b> :
         <a href="#" onClick={() => this.jumpTo(turn)}>{desc}</a>;
-      let list = (
+      const list = (
         <li key={turn}>
           {move}
         </li>
