@@ -1,2 +1,8 @@
+# dependencies
 node_modules
-www/bundle.js
+
+# webpack generated js
+app/www/bundle.js
+
+# npm debug log
+npm-debug.log
